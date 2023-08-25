@@ -26,10 +26,29 @@ router.get('/getAllTask',async function(req,res,next){
     helper.sendResponse(res,getAllTask);
 })
 
+//delete user ga bisa karena merupakan foreign key
 router.delete('/deleteTask',async function(req,res,next){
     const authToken = req.headers.authorization;
     const getAllTask = await m$login.deleteTask(req.body, authToken)
     helper.sendResponse(res,getAllTask);
+})
+
+router.put('/updateTask',async function(req,res,next){
+    const authToken = req.headers.authorization;
+    const updateTask = await m$login.updateTask(req.body, authToken)
+    helper.sendResponse(res,updateTask);
+})
+
+router.put('/updateUser',async function(req,res,next){
+    const authToken = req.headers.authorization;
+    const updateUser = await m$login.updateUser(req.body, authToken)
+    helper.sendResponse(res,updateUser);
+})
+
+router.delete('/deleteUser',async function(req,res,next){
+    const authToken = req.headers.authorization;
+    const deleteUser = await m$login.deleteUser(req.body, authToken)
+    helper.sendResponse(res,deleteUser);
 })
 
 module.exports = router;

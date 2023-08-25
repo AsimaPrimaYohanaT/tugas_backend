@@ -2,6 +2,8 @@ const config = require(`${__config_dir}/app.config.json`);
 const {debug} = config;
 const mysql = new(require(`${__class_dir}/mariadb.class.js`))(config.db);
 const Joi =  require('joi');
+var md5 = require('md5');
+const { md } = require('node-forge');
 
 class _user{
     add(data){
@@ -28,7 +30,7 @@ class _user{
         // Insert data to database
         const sql = {
             query: `INSERT INTO users (name, email, password) VALUES (?,?,?)`,
-            params: [data.name,data.email,data.password]
+            params: [data.name,data.email,md5(data.password)]
         }
 
         return mysql.query(sql.query, sql.params)
@@ -171,5 +173,4 @@ class _user{
             });
     }
 }
-
 module.exports = new _user();
